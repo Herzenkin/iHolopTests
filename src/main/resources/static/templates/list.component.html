@@ -1,0 +1,26 @@
+
+<div>
+  <table class="table col-md-8 table-striped">
+    <thead>
+      <tr>
+        <th>Holop's Id</th>
+        <th>Name</th>
+        <th>Master</th>
+        <th>Date From</th>
+        <th>Date To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let holop of holops" (click)="edit(holop)">
+        <td>{{holop.id}}</td>
+        <td>{{holop.holopName}}</td>
+        <td>{{holop.master}}</td>
+        <td>{{holop.dateFrom}}</td>
+        <td>{{holop.dateTo}}</td>
+        <td><button type="button" (click)="delete(holop); $event.stopPropagation()">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" (click)="add()">Add</button>
+</div>
