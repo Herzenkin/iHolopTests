@@ -13,8 +13,9 @@ var AppComponent = (function () {
 }());
 AppComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'iHolop',
-        templateUrl: './../templates/app.component.html'
+        templateUrl: './app.component.html'
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

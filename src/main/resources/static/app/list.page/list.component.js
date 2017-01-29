@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var holop_1 = require("./holop");
-var holop_service_1 = require("./holop.service");
 var router_1 = require("@angular/router");
+var holop_1 = require("./../service/holop");
+var holop_service_1 = require("./../service/holop.service");
 var ListComponent = (function () {
     function ListComponent(holopService, router) {
         this.holopService = holopService;
@@ -24,8 +24,8 @@ var ListComponent = (function () {
         this.holopService.getAll()
             .subscribe(function (data) { return _this.holops = data; });
     };
-    ListComponent.prototype.save = function (holop) {
-        this.holops.push(holop);
+    ListComponent.prototype.add = function () {
+        this.router.navigate(['/add']);
     };
     ListComponent.prototype.edit = function (holop) {
         this.router.navigate(['/edit', holop.id]);
@@ -35,15 +35,13 @@ var ListComponent = (function () {
         this.holopService.delete(holop.id)
             .subscribe(function (data) { return _this.holops = _this.holops.filter(function (h) { return h !== holop; }); });
     };
-    ListComponent.prototype.add = function () {
-        this.router.navigate(['/add']);
-    };
     return ListComponent;
 }());
 ListComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'holops',
-        templateUrl: './../templates/list.component.html'
+        templateUrl: './list.component.html'
     }),
     __metadata("design:paramtypes", [holop_service_1.HolopService,
         router_1.Router])

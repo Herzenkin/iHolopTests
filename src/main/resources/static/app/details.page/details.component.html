@@ -1,0 +1,39 @@
+<div>
+  <h4>Holop Details</h4>
+  <div *ngIf="holop.id" class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <label class="control-label" for="holopId">Id:</label>
+      <span id="holopId">{{holop.id}}</span>
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <label class="control-label" for="holopName">Name:</label>
+      <input type="text" id="holopName" class="form-control" placeholder="Holop Name" [(ngModel)]="holop.holopName" required>
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <label class="control-label" for="master">Master:</label>
+      <input type="text" id="master" class="form-control" placeholder="Master" [(ngModel)]="holop.master">
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <label class="control-label" for="dateFrom">Date from:</label>
+      <input type="text" id="dateFrom" class="form-control" placeholder="Date From" [(ngModel)]="holop.dateFrom">
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <label class="control-label" for="dateTo">Date To:</label>
+      <input type="text" id="dateTo" class="form-control" placeholder="Date To" [(ngModel)]="holop.dateTo">
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <div class="col-xs-4">
+      <button type="button" name="button" (click)="back()">Back</button>
+      <button type="button" name="button" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

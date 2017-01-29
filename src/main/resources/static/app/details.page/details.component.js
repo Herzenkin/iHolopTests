@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var holop_1 = require("./holop");
 var router_1 = require("@angular/router");
-var holop_service_1 = require("./holop.service");
 var common_1 = require("@angular/common");
+var holop_1 = require("./../service/holop");
+var holop_service_1 = require("./../service/holop.service");
 var DetailsComponent = (function () {
     function DetailsComponent(activeRoute, holopService, location) {
         this.activeRoute = activeRoute;
@@ -38,12 +38,16 @@ var DetailsComponent = (function () {
         this.holopService.save(this.holop)
             .subscribe(function (data) { return _this.location.back(); });
     };
+    DetailsComponent.prototype.back = function () {
+        this.location.back();
+    };
     return DetailsComponent;
 }());
 DetailsComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'holop-details',
-        templateUrl: './templates/details.component.html',
+        templateUrl: './details.component.html',
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         holop_service_1.HolopService,

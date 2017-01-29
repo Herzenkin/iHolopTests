@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Holop } from './holop';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HolopService } from './holop.service';
 import { Location } from '@angular/common';
 
+import { Holop } from './../service/holop';
+import { HolopService } from './../service/holop.service';
+
 @Component({
+  moduleId: module.id,
   selector: 'holop-details',
-  templateUrl: './templates/details.component.html',
+  templateUrl: './details.component.html',
 })
 export class DetailsComponent implements OnInit {
   constructor(
@@ -16,7 +17,9 @@ export class DetailsComponent implements OnInit {
     private location: Location
   ) {  }
 
-  ngOnInit() {
+  holop: Holop = new Holop();
+
+  ngOnInit(): void {
     this.activeRoute.params.forEach((params: Params) => {
       let id = +params['id'];
       if (isNaN(id)) {
@@ -26,17 +29,18 @@ export class DetailsComponent implements OnInit {
         .subscribe(
           data =>
             this.holop = data
-
         )
     })
   }
-
-  holop: Holop = new Holop();
 
   save(): void {
     this.holopService.save(this.holop)
       .subscribe(
         data => this.location.back()
       );
+  }
+
+  back(): void {
+    this.location.back();
   }
 }

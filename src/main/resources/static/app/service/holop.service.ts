@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Holop } from './holop';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+
+import { Holop } from './holop';
 
 @Injectable()
 export class HolopService {
@@ -10,7 +11,7 @@ export class HolopService {
     private http: Http
   ) {  }
 
-  private url = '/rest/holops';
+  private url: string = '/rest/holops';
 
   getAll(): Observable<Holop[]> {
     return this.http.get(this.url)
@@ -22,12 +23,12 @@ export class HolopService {
       .map(resp => resp.json() as Holop);
   }
 
-  save(holop: Holop): Observable<any> {
+  save(holop: Holop): Observable<Holop> {
     return this.http.post(this.url + '/' + holop.id, holop)
       .map(resp => resp.json())
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: number): Observable<number> {
     return this.http.delete(this.url + '/' + id)
       .map(resp => resp.json())
   }

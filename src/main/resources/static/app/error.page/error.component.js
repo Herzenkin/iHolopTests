@@ -17,8 +17,9 @@ var ErrorComponent = (function () {
 }());
 ErrorComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'errors',
-        template: "\n    <h1>You Missed!</h1>\n    <img src=\"./images/404.gif\" class=\"center-block\">\n  "
+        template: "\n    <h2 align=\"center\">Don't try to cheat - enter from the <a href=\"/\">door.</a></h2>\n    <img src=\"./../images/404.gif\" class=\"center-block\">\n  "
     }),
     __metadata("design:paramtypes", [])
 ], ErrorComponent);
