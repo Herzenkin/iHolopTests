@@ -13,10 +13,10 @@
     <tbody>
       <tr *ngFor="let holop of holops" (click)="edit(holop)">
         <td>{{holop.id}}</td>
-        <td>{{holop.holopName}}</td>
+        <td>{{holop.holopName | updown}}</td>
         <td>{{holop.master}}</td>
-        <td>{{holop.dateFrom}}</td>
-        <td>{{holop.dateTo}}</td>
+        <td>{{holop.dateFrom | date}}</td>
+        <td>{{holop.dateTo | date}}</td>
         <td><button type="button" (click)="delete(holop); $event.stopPropagation()">X</button></td>
       </tr>
     </tbody>

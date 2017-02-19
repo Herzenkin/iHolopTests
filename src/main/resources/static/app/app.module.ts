@@ -11,6 +11,7 @@ import { DetailsComponent } from './details.page/details.component';
 import { ListComponent } from './list.page/list.component';
 import { ErrorComponent } from './error.page/error.component';
 import { HolopService } from './service/holop.service';
+import { UpDownPipe } from './commons/updown.pipe';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { HolopService } from './service/holop.service';
     AppComponent,
     DetailsComponent,
     ListComponent,
-    ErrorComponent
+    ErrorComponent,
+    UpDownPipe
   ],
   providers: [
     HolopService

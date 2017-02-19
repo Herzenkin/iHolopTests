@@ -15,6 +15,7 @@ var details_component_1 = require("./details.page/details.component");
 var list_component_1 = require("./list.page/list.component");
 var error_component_1 = require("./error.page/error.component");
 var holop_service_1 = require("./service/holop.service");
+var updown_pipe_1 = require("./commons/updown.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,7 +51,8 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             details_component_1.DetailsComponent,
             list_component_1.ListComponent,
-            error_component_1.ErrorComponent
+            error_component_1.ErrorComponent,
+            updown_pipe_1.UpDownPipe
         ],
         providers: [
             holop_service_1.HolopService
