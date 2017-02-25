@@ -9,7 +9,9 @@ module.exports = function(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter')
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('karma-remap-istanbul')
     ],
 
     systemjs: {
@@ -98,8 +100,29 @@ module.exports = function(config) {
     ],
 
     exclude: [],
-    preprocessors: {},
-    reporters: ['progress', 'kjhtml'],
+    preprocessors: {
+      'app/**/!(*.spec).js': ['coverage']
+    },
+
+    reporters: ['progress', 'kjhtml', 'coverage', 'karma-remap-istanbul'],
+
+    // Generates code coverage report
+    coverageReporter: {
+      type: 'html',
+      dir: 'code_coverage'
+    },
+
+    // Remaps js-coverage to ts-coverage
+    remapIstanbulReporter: {
+      reports: {
+        html: 'code_coverage'
+      }
+    },
+
+    // Prevents clearing results in main window of Task Runner
+    client: {
+      clearContext: false
+    },
 
     port: 9876,
     colors: true,

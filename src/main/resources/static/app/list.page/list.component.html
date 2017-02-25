@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let holop of holops" (click)="edit(holop)">
+      <tr class="holop" *ngFor="let holop of holops" (click)="edit(holop)">
         <td>{{holop.id}}</td>
         <td>{{holop.holopName | updown}}</td>
         <td>{{holop.master}}</td>
@@ -22,5 +22,5 @@
     </tbody>
   </table>
 
-  <button type="button" (click)="add()">Add</button>
+  <button id="addButton" type="button" (click)="add()">Add</button>
 </div>
