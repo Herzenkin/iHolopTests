@@ -1,30 +1,19 @@
 "use strict";
 var testing_1 = require("@angular/core/testing");
-var router_1 = require("@angular/router");
 var platform_browser_1 = require("@angular/platform-browser");
+var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 var list_component_js_1 = require("./list.component.js");
 var updown_pipe_1 = require("./../commons/updown.pipe");
 var holop_service_1 = require("../service/holop.service");
+var holop_1 = require("../service/holop");
 describe('ListComponent', function () {
     var сomponent;
     var fixture;
     var holops = [
-        {
-            id: 1,
-            holopName: 'Holop',
-            master: 'Master',
-            dateFrom: '2016-10-10',
-            dateTo: '2019-15-15'
-        },
-        {
-            id: 2,
-            holopName: 'Holop Padavan',
-            master: 'Master Yoda',
-            dateFrom: '2016-10-10',
-            dateTo: '2019-15-15'
-        }
+        new holop_1.Holop(1, 'Holop', 'Master', '2016-10-10', '2019-15-15'),
+        new holop_1.Holop(2, 'Holop Padavan', 'Master Yoda', '2016-10-10', '2019-15-15')
     ];
     var eventObject = {
         stopPropagation: function () { }

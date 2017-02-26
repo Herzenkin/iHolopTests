@@ -1,7 +1,7 @@
 import { async, fakeAsync, tick, inject, TestBed, ComponentFixture } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
@@ -15,20 +15,8 @@ describe('ListComponent', () => {
   let сomponent: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
   let holops: Holop[] = [
-    {
-      id: 1,
-      holopName: 'Holop',
-      master: 'Master',
-      dateFrom: '2016-10-10',
-      dateTo: '2019-15-15'
-    },
-    {
-      id: 2,
-      holopName: 'Holop Padavan',
-      master: 'Master Yoda',
-      dateFrom: '2016-10-10',
-      dateTo: '2019-15-15'
-    }
+    new Holop(1, 'Holop', 'Master', '2016-10-10', '2019-15-15'),
+    new Holop(2, 'Holop Padavan', 'Master Yoda', '2016-10-10', '2019-15-15')
   ];
 
   let eventObject = {

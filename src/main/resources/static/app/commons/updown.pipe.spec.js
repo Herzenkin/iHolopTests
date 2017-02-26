@@ -6,10 +6,10 @@ describe('UpDownPipe', function () {
         pipe = new updown_pipe_1.UpDownPipe();
     });
     it('should transform string into UpDownCase', function () {
-        expect(pipe.transform('pipes')).toEqual('PiPeS');
+        expect(pipe.transform('pipes')).toEqual('PiPeS', 'transforms string');
     });
     it('should transform nothing', function () {
-        expect(pipe.transform('')).toBe('');
+        expect(pipe.transform('')).toBe('', 'transforms empty string');
     });
 });
 //# sourceMappingURL=updown.pipe.spec.js.map

@@ -1,6 +1,5 @@
-import { } from 'jasmine';
-
 import { UpDownPipe } from './updown.pipe';
+import { } from 'jasmine';
 
 describe('UpDownPipe', function() {
 
@@ -11,10 +10,10 @@ describe('UpDownPipe', function() {
   });
 
   it('should transform string into UpDownCase', () => {
-    expect(pipe.transform('pipes')).toEqual('PiPeS');
+    expect(pipe.transform('pipes')).toEqual('PiPeS', 'transforms string');
   });
 
   it('should transform nothing', () => {
-    expect(pipe.transform('')).toBe('');
+    expect(pipe.transform('')).toBe('', 'transforms empty string');
   });
 });
