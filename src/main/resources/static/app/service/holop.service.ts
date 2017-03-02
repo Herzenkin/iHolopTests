@@ -25,11 +25,11 @@ export class HolopService {
 
   save(holop: Holop): Observable<Holop> {
     return this.http.post(this.url + '/' + holop.id, holop)
-      .map(resp => resp.json())
+      .map(resp => resp.json() as Holop)
   }
 
   delete(id: number): Observable<number> {
     return this.http.delete(this.url + '/' + id)
-      .map(resp => resp.json())
+      .map(resp => resp.json() as number)
   }
 }
