@@ -9,21 +9,21 @@
     "lib": [ "es2015", "dom" ],
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "typeRoots": [
-      "./node_modules/@types/",
-      "./node_modules/@types/jasmine"
-    ]
+    "suppressImplicitAnyIndexErrors": true
   },
   "filesGlob" : [
     "app/**",
+    "e2e/**/*",
     "!node_modules/**",
-    "!images/**"
+    "!images/**",
+    "!code_coverage/**"
   ],
   "include": [
-    "app/**/*"
+    "app/**/*",
+    "e2e/**/*"
   ],
   "exclude": [
-    "node_modules/*"
+    "node_modules",
+    "code_coverage"
   ]
 }

@@ -10,14 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var common_1 = require("@angular/common");
 var holop_1 = require("./../service/holop");
 var holop_service_1 = require("./../service/holop.service");
 var DetailsComponent = (function () {
-    function DetailsComponent(activeRoute, holopService, location) {
+    function DetailsComponent(activeRoute, holopService, router) {
         this.activeRoute = activeRoute;
         this.holopService = holopService;
-        this.location = location;
+        this.router = router;
         this.holop = new holop_1.Holop();
     }
     DetailsComponent.prototype.ngOnInit = function () {
@@ -36,10 +35,10 @@ var DetailsComponent = (function () {
     DetailsComponent.prototype.save = function () {
         var _this = this;
         this.holopService.save(this.holop)
-            .subscribe(function (data) { return _this.location.back(); });
+            .subscribe(function (data) { return _this.router.navigate(['/']); });
     };
     DetailsComponent.prototype.back = function () {
-        this.location.back();
+        this.router.navigate(['/']);
     };
     return DetailsComponent;
 }());
@@ -51,7 +50,7 @@ DetailsComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         holop_service_1.HolopService,
-        common_1.Location])
+        router_1.Router])
 ], DetailsComponent);
 exports.DetailsComponent = DetailsComponent;
 //# sourceMappingURL=details.component.js.map

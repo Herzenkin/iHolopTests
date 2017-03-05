@@ -1,7 +1,6 @@
 "use strict";
 var testing_1 = require("@angular/core/testing");
 var platform_browser_1 = require("@angular/platform-browser");
-var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
@@ -16,7 +15,7 @@ describe('DetailsComponent', function () {
     var debugEl;
     var activatedRoute;
     var holopService;
-    var location;
+    var router;
     var stubbedHolop = new holop_1.Holop(1, 'Holop', 'Master', '2016-10-10', '2016-11-11');
     // async beforEach
     beforeEach(testing_1.async(function () {
@@ -33,8 +32,10 @@ describe('DetailsComponent', function () {
                 return Observable_1.Observable.of(savingHolop);
             }
         };
-        var locationStub = {
-            back: function () { }
+        var routerStub = {
+            navigate: function (url) {
+                return url;
+            }
         };
         testing_1.TestBed.configureTestingModule({
             imports: [forms_1.FormsModule],
@@ -42,7 +43,7 @@ describe('DetailsComponent', function () {
             providers: [
                 { provide: holop_service_1.HolopService, useValue: holopServiceStub },
                 { provide: router_1.ActivatedRoute, useClass: routing_stubs_1.ActivateRouteStub },
-                { provide: common_1.Location, useValue: locationStub }
+                { provide: router_1.Router, useValue: routerStub }
             ]
         }).compileComponents();
     }));
@@ -53,7 +54,7 @@ describe('DetailsComponent', function () {
         debugEl = fixture.debugElement;
         activatedRoute = debugEl.injector.get(router_1.ActivatedRoute);
         holopService = debugEl.injector.get(holop_service_1.HolopService);
-        location = debugEl.injector.get(common_1.Location);
+        router = debugEl.injector.get(router_1.Router);
     });
     it('should be initialized', function () {
         expect(component).toBeTruthy('component initialization');
@@ -72,7 +73,7 @@ describe('DetailsComponent', function () {
     it('should save new holop and redirect to List page', testing_1.async(function () {
         fixture.detectChanges();
         var spyHolopService = spyOn(holopService, 'save').and.callThrough();
-        var spyLocation = spyOn(location, 'back');
+        var spyRouter = spyOn(router, 'navigate');
         var nameInput = debugEl.query(platform_browser_1.By.css('#holopName')).nativeElement;
         nameInput.value = 'Padavan';
         nameInput.dispatchEvent(new Event('input'));
@@ -94,7 +95,9 @@ describe('DetailsComponent', function () {
             expect(savingHolop.master).toBe('Yoda', 'saving holop\'s master');
             expect(savingHolop.dateFrom).toBe('2016-10-10', 'saving holop\'s dateFrom');
             expect(savingHolop.dateTo).toBe('2016-11-11', 'saving holop\'s dateFrom');
-            expect(location.back).toHaveBeenCalled();
+            expect(router.navigate).toHaveBeenCalled();
+            var navigationArgs = spyRouter.calls.first().args[0]; // Args passed to Router.navigate()
+            expect(navigationArgs).toEqual(['/'], 'parameter of "Router.navigate()"');
         });
     }));
     it('should show details form for existing holop', testing_1.async(function () {
@@ -107,12 +110,25 @@ describe('DetailsComponent', function () {
             expect(nameInput.value).toBe(stubbedHolop.holopName, 'holop\'s name');
         });
     }));
+    it('should show empty details form for non-numerical id', testing_1.async(function () {
+        activatedRoute.testParams = { 'id': 'empty' };
+        fixture.detectChanges();
+        fixture.whenStable().then(function () {
+            fixture.detectChanges();
+            var idField = debugEl.query(platform_browser_1.By.css('#holopId'));
+            expect(idField).toBeNull('non-existing id');
+            var nameInput = debugEl.query(platform_browser_1.By.css('#holopName')).nativeElement;
+            expect(nameInput.textContent).toBeFalsy('form is empty');
+        });
+    }));
     it('should redirect back to list component', function () {
         fixture.detectChanges();
-        var spyLocation = spyOn(location, 'back');
+        var spyRouter = spyOn(router, 'navigate');
         var backButton = debugEl.query(platform_browser_1.By.css('#back')).nativeElement;
         backButton.click();
-        expect(location.back).toHaveBeenCalled();
+        expect(router.navigate).toHaveBeenCalled();
+        var navigationArgs = spyRouter.calls.first().args[0]; // Args passed to Router.navigate()
+        expect(navigationArgs).toEqual(['/'], 'parameter of "Router.navigate()"');
     });
 });
 //# sourceMappingURL=details.component.spec.js.map

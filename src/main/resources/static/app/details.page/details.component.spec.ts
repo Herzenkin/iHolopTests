@@ -1,13 +1,12 @@
-import { async, fakeAsync, tick, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { DetailsComponent } from './details.component.js';
+import { DetailsComponent } from './details.component';
 import { HolopService } from '../service/holop.service';
 import { Holop } from '../service/holop';
 import { ActivateRouteStub } from '../testing/routing.stubs';
@@ -19,11 +18,11 @@ describe('DetailsComponent', () => {
   let debugEl: DebugElement;
   let activatedRoute: ActivateRouteStub;
   let holopService: HolopService;
-  let location: Location;
+  let router: Router;
 
   const stubbedHolop: Holop = new Holop(1, 'Holop', 'Master', '2016-10-10', '2016-11-11');
 
-  // async beforEach
+  // async beforeEach
   beforeEach(async(() => {
     let holopServiceStub = {
       get(id: number): Observable<Holop> {
@@ -37,8 +36,10 @@ describe('DetailsComponent', () => {
         return Observable.of(savingHolop);
       }
     };
-    let locationStub = {
-      back() { }
+    let routerStub = {
+      navigate(url: string): string {
+        return url;
+      }
     };
 
     TestBed.configureTestingModule({
@@ -47,7 +48,7 @@ describe('DetailsComponent', () => {
       providers: [
         { provide: HolopService, useValue: holopServiceStub },
         { provide: ActivatedRoute, useClass: ActivateRouteStub },
-        { provide: Location, useValue: locationStub }
+        { provide: Router, useValue: routerStub }
       ]
     }).compileComponents();
   }));
@@ -59,7 +60,7 @@ describe('DetailsComponent', () => {
     debugEl = fixture.debugElement;
     activatedRoute = debugEl.injector.get(ActivatedRoute);
     holopService = debugEl.injector.get(HolopService);
-    location = debugEl.injector.get(Location);
+    router = debugEl.injector.get(Router);
   });
 
   it('should be initialized', () => {
@@ -85,7 +86,7 @@ describe('DetailsComponent', () => {
     fixture.detectChanges();
 
     let spyHolopService = spyOn(holopService, 'save').and.callThrough();
-    let spyLocation = spyOn(location, 'back');
+    let spyRouter = spyOn(router, 'navigate');
 
     let nameInput = debugEl.query(By.css('#holopName')).nativeElement;
     nameInput.value = 'Padavan';
@@ -114,7 +115,9 @@ describe('DetailsComponent', () => {
       expect(savingHolop.dateFrom).toBe('2016-10-10', 'saving holop\'s dateFrom');
       expect(savingHolop.dateTo).toBe('2016-11-11', 'saving holop\'s dateFrom');
 
-      expect(location.back).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalled();
+      const navigationArgs = spyRouter.calls.first().args[0]; // Args passed to Router.navigate()
+      expect(navigationArgs).toEqual(['/'], 'parameter of "Router.navigate()"');
     })
   }));
 
@@ -132,14 +135,31 @@ describe('DetailsComponent', () => {
     });
   }));
 
+  it('should show empty details form for non-numerical id', async(() => {
+    activatedRoute.testParams = { 'id': 'empty' };
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+      let idField = debugEl.query(By.css('#holopId'));
+      expect(idField).toBeNull('non-existing id');
+
+      let nameInput = debugEl.query(By.css('#holopName')).nativeElement;
+      expect(nameInput.textContent).toBeFalsy('form is empty');
+    });
+  }));
+
   it('should redirect back to list component', () => {
     fixture.detectChanges();
 
-    let spyLocation = spyOn(location, 'back');
+    let spyRouter = spyOn(router, 'navigate');
 
     let backButton = debugEl.query(By.css('#back')).nativeElement;
     backButton.click();
 
-    expect(location.back).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalled();
+    const navigationArgs = spyRouter.calls.first().args[0]; // Args passed to Router.navigate()
+    expect(navigationArgs).toEqual(['/'], 'parameter of "Router.navigate()"');
   });
 });

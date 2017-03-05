@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Holop } from './../service/holop';
 import { HolopService } from './../service/holop.service';
@@ -14,7 +13,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private holopService: HolopService,
-    private location: Location
+    private router: Router
   ) {  }
 
   holop: Holop = new Holop();
@@ -36,11 +35,11 @@ export class DetailsComponent implements OnInit {
   save(): void {
     this.holopService.save(this.holop)
       .subscribe(
-        data => this.location.back()
+        data => this.router.navigate(['/'])
       );
   }
 
   back(): void {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 }
