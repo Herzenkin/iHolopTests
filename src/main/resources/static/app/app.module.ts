@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { DetailsComponent } from './details.page/details.component';
 import { ListComponent } from './list.page/list.component';
 import { ErrorComponent } from './error.page/error.component';
+import { AboutComponent } from './about.page/about.component';
 import { HolopService } from './service/holop.service';
 import { UpDownPipe } from './commons/updown.pipe';
 
@@ -33,6 +34,10 @@ import { UpDownPipe } from './commons/updown.pipe';
         component: DetailsComponent
       },
       {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
         path: '**',
         component: ErrorComponent
       }
@@ -43,6 +48,7 @@ import { UpDownPipe } from './commons/updown.pipe';
     DetailsComponent,
     ListComponent,
     ErrorComponent,
+    AboutComponent,
     UpDownPipe
   ],
   providers: [

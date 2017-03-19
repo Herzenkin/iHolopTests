@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var protractor_1 = require("protractor");
 describe('Dashboard Page', function () {
     beforeEach(function () {
@@ -15,17 +16,23 @@ describe('Dashboard Page', function () {
         expect(holops.get(1).getText()).toContain('PrOhOr');
         expect(holops.last().getText()).toContain('DjAnGo');
     });
-    it('should navigate to Add Holop after clicking "Add" button', function () {
+    it('should navigate to "Add Holop" page after clicking "Add" button', function () {
         var addButton = protractor_1.element(protractor_1.by.id('addButton'));
         addButton.click();
         var detailsPageHeader = protractor_1.element(protractor_1.by.css('h4'));
         expect(detailsPageHeader.getText()).toBe('Holop Details');
     });
-    it('should navigate to Add Holop after clicking "Add New Holop" link', function () {
+    it('should navigate to "Add Holop" page after clicking "Add New Holop" link', function () {
         var addLink = protractor_1.element(protractor_1.by.tagName('ul')).element(protractor_1.by.id('addHolop'));
         addLink.click();
         var detailsPageHeader = protractor_1.element(protractor_1.by.css('h4'));
         expect(detailsPageHeader.getText()).toBe('Holop Details');
+    });
+    it('should navigate to About page after clicking "About" link', function () {
+        var aboutLink = protractor_1.element(protractor_1.by.tagName('ul')).element(protractor_1.by.id('about'));
+        aboutLink.click();
+        var aboutPageHeader = protractor_1.element(protractor_1.by.css('h2'));
+        expect(aboutPageHeader.getText()).toBe('About Info');
     });
     it('should show two Holops after clicking "X" button on second Holop', function () {
         var holops = protractor_1.element.all(protractor_1.by.css('.holop'));

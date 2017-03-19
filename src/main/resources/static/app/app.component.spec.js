@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var testing_1 = require("@angular/core/testing");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
@@ -34,9 +35,10 @@ describe('AppComponent', function () {
         expect(component).toBeTruthy('component initialization');
     });
     it('should show routing links in menu', function () {
-        expect(links.length).toBe(2, 'should have 2 links');
+        expect(links.length).toBe(3, 'should have 2 links');
         expect(links[0].linkParams).toBe('/', '1st should redirect to "Dashboard" page');
         expect(links[1].linkParams).toBe('/add', '2nd should redirect to "Add Holop" page');
+        expect(links[2].linkParams).toBe('/about', '3nd should redirect to "About" page');
     });
     it('should redirect to "Add Holop" page', function () {
         var addLink = links[1];

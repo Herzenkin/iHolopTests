@@ -20,7 +20,7 @@ describe('Dashboard Page', () => {
     expect(holops.last().getText()).toContain('DjAnGo');
   });
 
-  it('should navigate to Add Holop after clicking "Add" button', () => {
+  it('should navigate to "Add Holop" page after clicking "Add" button', () => {
     let addButton = element(by.id('addButton'));
     addButton.click();
 
@@ -28,12 +28,20 @@ describe('Dashboard Page', () => {
     expect(detailsPageHeader.getText()).toBe('Holop Details');
   });
 
-  it('should navigate to Add Holop after clicking "Add New Holop" link', () => {
+  it('should navigate to "Add Holop" page after clicking "Add New Holop" link', () => {
     let addLink = element(by.tagName('ul')).element(by.id('addHolop'));
     addLink.click();
 
     let detailsPageHeader = element(by.css('h4'));
     expect(detailsPageHeader.getText()).toBe('Holop Details');
+  });
+
+  it('should navigate to About page after clicking "About" link', () => {
+    let aboutLink = element(by.tagName('ul')).element(by.id('about'));
+    aboutLink.click();
+
+    let aboutPageHeader = element(by.css('h2'));
+    expect(aboutPageHeader.getText()).toBe('About Info');
   });
 
   it('should show two Holops after clicking "X" button on second Holop', () => {
