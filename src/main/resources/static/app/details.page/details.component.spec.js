@@ -5,7 +5,7 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
-var details_component_js_1 = require("./details.component.js");
+var details_component_1 = require("./details.component");
 var holop_service_1 = require("../service/holop.service");
 var holop_1 = require("../service/holop");
 var routing_stubs_1 = require("../testing/routing.stubs");
@@ -17,7 +17,7 @@ describe('DetailsComponent', function () {
     var holopService;
     var router;
     var stubbedHolop = new holop_1.Holop(1, 'Holop', 'Master', '2016-10-10', '2016-11-11');
-    // async beforEach
+    // async beforeEach
     beforeEach(testing_1.async(function () {
         var holopServiceStub = {
             get: function (id) {
@@ -39,7 +39,7 @@ describe('DetailsComponent', function () {
         };
         testing_1.TestBed.configureTestingModule({
             imports: [forms_1.FormsModule],
-            declarations: [details_component_js_1.DetailsComponent],
+            declarations: [details_component_1.DetailsComponent],
             providers: [
                 { provide: holop_service_1.HolopService, useValue: holopServiceStub },
                 { provide: router_1.ActivatedRoute, useClass: routing_stubs_1.ActivateRouteStub },
@@ -49,7 +49,7 @@ describe('DetailsComponent', function () {
     }));
     // synchronous beforeEach
     beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(details_component_js_1.DetailsComponent);
+        fixture = testing_1.TestBed.createComponent(details_component_1.DetailsComponent);
         component = fixture.componentInstance;
         debugEl = fixture.debugElement;
         activatedRoute = debugEl.injector.get(router_1.ActivatedRoute);
